@@ -18,6 +18,7 @@ namespace Emerson1.Controllers
             _context = new ApplicationDbContext();
         }
 
+
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
