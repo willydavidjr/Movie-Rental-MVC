@@ -1,0 +1,27 @@
+﻿@model Emerson1.ViewModels.RandomMovieViewModel
+@{
+    ViewBag.Title = "Random";
+}
+
+<h2>Random</h2>
+
+
+@{ 
+    var className = Model.Customers.Count > 0 ? "plural" : null;
+}
+
+<h2 class="@className">@Model.Movie.Name</h2>
+
+@if (Model.Customers.Count == 0)
+{
+    <p>No one has rented this movie before.</p>
+}
+else
+{
+<ul>
+    @foreach (var cust in Model.Customers)
+    {
+        <li>@cust.Name</li>
+    }
+</ul>
+}

@@ -1,0 +1,12 @@
+﻿@model Emerson1.Models.Customer
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<p>@Model.Name</p>
+@if (Model.BirthDate != null)
+{
+   <p>@Model.BirthDate.Value.ToShortDateString()</p>
+}

@@ -1,0 +1,11 @@
+﻿@model Emerson1.Models.Movie
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<p>Title: @Model.Name</p>
+<p>Date Added: @Model.DateAdded.Date.ToLongDateString()</p>
+<p>Release Date: @Model.ReleaseDate.Date.ToShortDateString()</p>
+<p>Number of Stocks: @Model.NumberOfStocks</p>
+

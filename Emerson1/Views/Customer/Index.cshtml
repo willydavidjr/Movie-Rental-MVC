@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Emerson1.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (!Model.Any())
+{
+    <p>No customers available yet.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customer Data</th>
+                <th>Membership Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                       @Html.ActionLink(item.Name, "Details", "Customer", new { CustomerID = @item.Id }, null)
+                </td>
+                <td>
+                    @*@item.MembershipType.DiscountRate%*@
+                    @item.MembershipType.Name
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
