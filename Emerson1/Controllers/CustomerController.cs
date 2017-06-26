@@ -32,6 +32,11 @@ namespace Emerson1.Controllers
             return View(customers);
         }
 
+        public ActionResult New()
+        {
+            return View();
+        }
+
         public ActionResult Details (int CustomerID)
         {
             //Customer cust = GetCustomers().Where(x => x.Id == CustomerID).SingleOrDefault();
