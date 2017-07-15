@@ -14,7 +14,11 @@ namespace Emerson1.Models
         public string Name { get; set; }
         public bool IsSubscribeToNewsletter { get; set; }
         public MembershipType MembershipType { get; set; }
+
+        [Display(Name="Membership Types")]
         public byte MembershipTypeId { get; set; }
+
+        [Display(Name="Date of Birth")]
         public DateTime? BirthDate { get; set; }
     }
 }
