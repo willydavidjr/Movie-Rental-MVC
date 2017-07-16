@@ -55,6 +55,16 @@ namespace Emerson1.Controllers
         [HttpPost]
         public ActionResult Save(CustomerFormViewModel model) //UpdateCustomerDto model
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel()
+                {
+                    Customer = model.Customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                return View("CustomerForm", viewModel);
+            }
+
             if (model.Customer.Id == 0)
                 _context.Customers.Add(model.Customer);
             else
