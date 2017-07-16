@@ -30,7 +30,8 @@ else
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(item.Name, "Details", "Movies", new { MovieID = @item.Id}, null)
+                        @*@Html.ActionLink(item.Name, "Details", "Movies", new { MovieID = @item.Id}, null)*@
+                        @Html.ActionLink(item.Name, "Edit", "Movies", new { MovieID = @item.Id }, null)
                     </td>
                     <td>
                         @item.Genre.Name

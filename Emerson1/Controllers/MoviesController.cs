@@ -47,14 +47,39 @@ namespace Emerson1.Controllers
             return View(movies);
         }
 
-        public ActionResult Save()
+        public ActionResult Save(NewMoviesViewModel model)
         {
+            if (model.Movie.Id == 0)
+                _context.Movies.Add(model.Movie);
+            else
+            {
+                var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == model.Movie.Id);
+                movieInDb.Name = model.Movie.Name;
+                movieInDb.NumberOfStocks = model.Movie.NumberOfStocks;
+                movieInDb.ReleaseDate = model.Movie.ReleaseDate;
+                movieInDb.GenreId = model.Movie.GenreId;
+            }
 
-            return View();
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
+
+        public ActionResult Edit(int MovieID)
+        {
+            var Movies = _context.Movies.SingleOrDefault(x => x.Id == MovieID);
+
+            var viewModel = new NewMoviesViewModel()
+            {
+                Movie = Movies,
+                Genres = _context.Genres.ToList()
+            };
+            ViewBag.Title = "Edit Movie";
+            return View("MoviesForm", viewModel);
         }
 
         public ActionResult MoviesForm()
         {
+            ViewBag.Title = "New Movie";
             var viewModel = new NewMoviesViewModel()
             {
                 Genres = _context.Genres.ToList()
