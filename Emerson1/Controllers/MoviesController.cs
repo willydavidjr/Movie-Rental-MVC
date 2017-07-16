@@ -47,6 +47,22 @@ namespace Emerson1.Controllers
             return View(movies);
         }
 
+        public ActionResult Save()
+        {
+
+            return View();
+        }
+
+        public ActionResult MoviesForm()
+        {
+            var viewModel = new NewMoviesViewModel()
+            {
+                Genres = _context.Genres.ToList()
+            };
+
+            return View(viewModel);
+        }
+
         public ActionResult Details(int MovieID)
         {
             //Movie movie = GetMovies().Where(x => x.Id == MovieID).SingleOrDefault();
