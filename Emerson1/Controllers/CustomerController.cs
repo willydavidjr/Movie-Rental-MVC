@@ -45,8 +45,8 @@ namespace Emerson1.Controllers
 
             var viewModel = new CustomerFormViewModel()
             {
-                MembershipTypes = membershipTypes
-                //Customer = 
+                MembershipTypes = membershipTypes,
+                Customer = new Customer()
             };
 
             return View("CustomerForm", viewModel);

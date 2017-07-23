@@ -49,17 +49,18 @@ namespace Emerson1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(NewMoviesViewModel model)
+        public ActionResult Save(Movie model)
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new NewMoviesViewModel()
+                var viewModel = new MovieFormViewModel()
                 {
                     Genres = _context.Genres.ToList()
                 };
                 return RedirectToAction("MoviesForm", viewModel);
             }
 
+            /*
             if (model.Movie.Id == 0)
                 _context.Movies.Add(model.Movie);
             else
@@ -70,7 +71,18 @@ namespace Emerson1.Controllers
                 movieInDb.ReleaseDate = model.Movie.ReleaseDate;
                 movieInDb.GenreId = model.Movie.GenreId;
             }
+            */
 
+            if (model.Id == 0)
+                _context.Movies.Add(model);
+            else
+            {
+                var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == model.Id);
+                movieInDb.Name = model.Name;
+                movieInDb.NumberOfStocks = model.NumberOfStocks;
+                movieInDb.ReleaseDate = model.ReleaseDate;
+                movieInDb.GenreId = model.GenreId;
+            }
             _context.SaveChanges();
             return RedirectToAction("Index", "Movies");
         }
@@ -79,9 +91,9 @@ namespace Emerson1.Controllers
         {
             var Movies = _context.Movies.SingleOrDefault(x => x.Id == MovieID);
 
-            var viewModel = new NewMoviesViewModel()
+            var viewModel = new MovieFormViewModel()
             {
-                Movie = Movies,
+                // = Movies,
                 Genres = _context.Genres.ToList()
             };
             ViewBag.Title = "Edit Movie";
@@ -91,7 +103,7 @@ namespace Emerson1.Controllers
         public ActionResult MoviesForm()
         {
             ViewBag.Title = "New Movie";
-            var viewModel = new NewMoviesViewModel()
+            var viewModel = new MovieFormViewModel()
             {
                 Genres = _context.Genres.ToList()
             };
