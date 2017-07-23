@@ -32,6 +32,11 @@
         @Html.ValidationMessageFor(x=>x.Customer.MembershipTypeId)
     </div>
     @Html.HiddenFor(x=>x.Customer.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")  
+}

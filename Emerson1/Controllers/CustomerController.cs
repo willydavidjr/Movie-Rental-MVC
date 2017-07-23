@@ -53,6 +53,7 @@ namespace Emerson1.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(CustomerFormViewModel model) //UpdateCustomerDto model
         {
             if (!ModelState.IsValid)

@@ -47,8 +47,19 @@ namespace Emerson1.Controllers
             return View(movies);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(NewMoviesViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new NewMoviesViewModel()
+                {
+                    Genres = _context.Genres.ToList()
+                };
+                return RedirectToAction("MoviesForm", viewModel);
+            }
+
             if (model.Movie.Id == 0)
                 _context.Movies.Add(model.Movie);
             else
