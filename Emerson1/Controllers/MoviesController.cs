@@ -100,7 +100,7 @@ namespace Emerson1.Controllers
                     Movie = model.Movie,
                     Genres = _context.Genres.ToList()
                 };
-                //return RedirectToAction("MoviesForm", viewModel); - produces parameter on URL
+                //return RedirectToAction("MoviesForm", viewModel); //- produces parameter on URL
                 return View("MoviesForm", viewModel);
             }
 
