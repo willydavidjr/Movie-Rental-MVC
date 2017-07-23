@@ -104,19 +104,6 @@ namespace Emerson1.Controllers
                 return View("MoviesForm", viewModel);
             }
 
-            /*
-            if (model.Movie.Id == 0)
-                _context.Movies.Add(model.Movie);
-            else
-            {
-                var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == model.Movie.Id);
-                movieInDb.Name = model.Movie.Name;
-                movieInDb.NumberOfStocks = model.Movie.NumberOfStocks;
-                movieInDb.ReleaseDate = model.Movie.ReleaseDate;
-                movieInDb.GenreId = model.Movie.GenreId;
-            }
-            */
-
             if (model.Movie.Id == 0)
                 _context.Movies.Add(model.Movie);
             else
