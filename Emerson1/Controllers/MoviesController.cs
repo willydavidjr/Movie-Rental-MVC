@@ -94,7 +94,7 @@ namespace Emerson1.Controllers
         public ActionResult Save(NewMoviesViewModel model)
         {
             if (!ModelState.IsValid)
-            {
+            {   
                 var viewModel = new NewMoviesViewModel()
                 {
                     Movie = model.Movie,
