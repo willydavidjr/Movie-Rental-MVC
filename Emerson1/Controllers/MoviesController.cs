@@ -47,6 +47,8 @@ namespace Emerson1.Controllers
             return View(movies);
         }
 
+        /*
+        This will work on validation with client side
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Movie model)
@@ -57,7 +59,49 @@ namespace Emerson1.Controllers
                 {
                     Genres = _context.Genres.ToList()
                 };
-                return RedirectToAction("MoviesForm", viewModel);
+                return View("MoviesForm", viewModel);
+            }
+
+            ---Start Comment
+            if (model.Movie.Id == 0)
+                _context.Movies.Add(model.Movie);
+            else
+            {
+                var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == model.Movie.Id);
+                movieInDb.Name = model.Movie.Name;
+                movieInDb.NumberOfStocks = model.Movie.NumberOfStocks;
+                movieInDb.ReleaseDate = model.Movie.ReleaseDate;
+                movieInDb.GenreId = model.Movie.GenreId;
+            }
+            ----End
+
+            if (model.Id == 0)
+                _context.Movies.Add(model);
+            else
+            {
+                var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == model.Id);
+        movieInDb.Name = model.Name;
+                movieInDb.NumberOfStocks = model.NumberOfStocks;
+                movieInDb.ReleaseDate = model.ReleaseDate;
+                movieInDb.GenreId = model.GenreId;
+            }
+                _context.SaveChanges();
+                        return RedirectToAction("Index", "Movies");
+            }
+        */
+
+        [HttpPost]
+        public ActionResult Save(NewMoviesViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new NewMoviesViewModel()
+                {
+                    Movie = model.Movie,
+                    Genres = _context.Genres.ToList()
+                };
+                //return RedirectToAction("MoviesForm", viewModel); - produces parameter on URL
+                return View("MoviesForm", viewModel);
             }
 
             /*
@@ -73,15 +117,15 @@ namespace Emerson1.Controllers
             }
             */
 
-            if (model.Id == 0)
-                _context.Movies.Add(model);
+            if (model.Movie.Id == 0)
+                _context.Movies.Add(model.Movie);
             else
             {
-                var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == model.Id);
-                movieInDb.Name = model.Name;
-                movieInDb.NumberOfStocks = model.NumberOfStocks;
-                movieInDb.ReleaseDate = model.ReleaseDate;
-                movieInDb.GenreId = model.GenreId;
+                var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == model.Movie.Id);
+                movieInDb.Name = model.Movie.Name;
+                movieInDb.NumberOfStocks = model.Movie.NumberOfStocks;
+                movieInDb.ReleaseDate = model.Movie.ReleaseDate;
+                movieInDb.GenreId = model.Movie.GenreId;
             }
             _context.SaveChanges();
             return RedirectToAction("Index", "Movies");
@@ -100,10 +144,13 @@ namespace Emerson1.Controllers
             return View("MoviesForm", viewModel);
         }
 
+
+
+
         public ActionResult MoviesForm()
         {
             ViewBag.Title = "New Movie";
-            var viewModel = new MovieFormViewModel()
+            var viewModel = new NewMoviesViewModel()
             {
                 Genres = _context.Genres.ToList()
             };
